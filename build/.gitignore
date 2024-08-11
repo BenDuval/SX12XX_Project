@@ -1,0 +1,16 @@
+#Ignore build directory
+build/
+
+# Ignore compiled files
+*.o 
+*.out
+*.exe
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore CMake generated files
+CMakeFiles/
+CMakeCache.txt
+*.cmake
