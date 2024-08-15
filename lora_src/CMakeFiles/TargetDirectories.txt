@@ -1,0 +1,4 @@
+/home/limccart/SX12XX_Project/lora_src/CMakeFiles/Transmitter.dir
+/home/limccart/SX12XX_Project/lora_src/CMakeFiles/file_tx.dir
+/home/limccart/SX12XX_Project/lora_src/CMakeFiles/edit_cache.dir
+/home/limccart/SX12XX_Project/lora_src/CMakeFiles/rebuild_cache.dir
