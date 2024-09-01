@@ -1,17 +1,25 @@
 #include <RadioLib.h>
-#include "PiHal.h"
 #include <chrono> // For timestamping
+#include "PiHal_WP.h"
+//#include "PiHal_LG.h"
 
-// Create a new instance of the HAL class
 PiHal* hal = new PiHal(0);
 
+//wiringPi module instance, use with PiHal_WP.h
 // Create the radio module instance
-// Pinout corresponds to your SX1262 setup
-// NSS pin: WiringPi 10 (GPIO 8)
-// DIO1 pin: WiringPi 2 (GPIO 27)
-// NRST pin: WiringPi 21 (GPIO 5)
-// BUSY pin: WiringPi 0 (GPIO 17)
-SX1262 radio = new Module(hal, 10, 2, 21, 0);
+// NSS pin: WiringPi 21 (GPIO 5)
+// DIO1 pin: WiringPi 22 (GPIO 6)
+// NRST pin: WiringPi 25 (GPIO 26)
+// BUSY pin: WiringPi 27 (GPIO 16)
+SX1262 radio = new Module(hal, 21, 22, 25, 27);
+
+//testing other groups' pinout with both wiringPi and lgpio
+// Create the radio module instance
+// NSS pin: WiringPi 21 (GPIO 5)
+// DIO1 pin: WiringPi 22 (GPIO 6)
+// NRST pin: WiringPi 25 (GPIO 26)
+// BUSY pin: WiringPi 27 (GPIO 16)
+//SX1262 radio = new Module(hal, 5, 6, 26, 16);
 
 int main() {
     printf("[SX1262] Initializing ... ");

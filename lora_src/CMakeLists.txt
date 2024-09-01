@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.18)
 project(simple_tx)
 
 # Include the RadioLib directory within your project
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../../RadioLib/src")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../RadioLib/src")
 
 # Add the main executable
 add_executable(${PROJECT_NAME} ref_tx.cpp)
@@ -15,6 +15,9 @@ add_executable(simple_rx ref_rx.cpp)
 # Find and link the WiringPi library
 find_library(WIRINGPI_LIB wiringPi)
 
+#or use lg
+#find_library(LG_LIB llgpio)
+
 if(NOT WIRINGPI_LIB)
   message(FATAL_ERROR "WiringPi library not found")
 endif()
@@ -23,8 +26,12 @@ endif()
 target_link_libraries(${PROJECT_NAME} ${WIRINGPI_LIB})
 target_link_libraries(simple_rx ${WIRINGPI_LIB})
 
+#Link for lg instead of WP
+#target_link_libraries(${PROJECT_NAME} ${LG_LIB})
+#target_link_libraries(simple_rx ${LG_LIB})
+
 # Manually include all RadioLib source files (including subdirectories) for both executables
-file(GLOB_RECURSE RADIO_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/RadioLib/src/*.cpp")
+file(GLOB_RECURSE RADIO_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/../RadioLib/src/*.cpp")
 target_sources(${PROJECT_NAME} PRIVATE ${RADIO_LIB_SOURCES})
 target_sources(simple_rx PRIVATE ${RADIO_LIB_SOURCES})
 
