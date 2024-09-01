@@ -14,9 +14,9 @@ PiHal* hal = new PiHal(0);
 SX1262 radio = new Module(hal, 10, 2, 21, 0);
 
 int main() {
-    // Initialize the radio module with XTAL configuration
     printf("[SX1262] Initializing ... ");
-    int state = radio.beginFSK(915.0, 4.8, 125.0, 467.0, 20.0, 16.0, 0.0, false);
+    //int state = radio.beginFSK(915.0, 4.8, 125.0, 467.0, 20.0, 16.0, 0.0, false);
+    int state = radio.begin(915.0, 250.0, 12, 5, 0x12, 10, 8, 0.0, true);
     if (state != RADIOLIB_ERR_NONE) {
         printf("Initialization failed, code %d\n", state);
         return 1;
@@ -26,30 +26,30 @@ int main() {
     int count = 0;
 
     while (true) {
-        // Get the current time 
+        //getcurrent time 
         auto now = std::chrono::high_resolution_clock::now();
         auto timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
 
-        // Print the timestamp and packet number
+        //print the timestamp and packet number
         printf("[SX1262] Transmitting packet #%d at time %lld ms ... ", count, timestamp);
 
-        // Create a packet with the timestamp and message
+        //create a packet with the timestamp and message
         char str[64];
         sprintf(str, "Timestamp: %lld, Hello World! #%d", timestamp, count++);
 
-        // Send the packet
+        //send the packet
         state = radio.transmit(str);
         if (state == RADIOLIB_ERR_NONE) {
             printf("success!\n");
 
-            // Get and print the effective data rate for the transmitted packet
+            //print the effective data rate for the transmitted packet
             float effectiveDataRate = radio.getDataRate();
             printf("Effective Data Rate: %.2f bps\n", effectiveDataRate);
         } else {
             printf("failed, code %d\n", state);
         }
 
-        // Wait for a second before transmitting again
+        //don't want to overwhelm receiver
         hal->delay(1000);
     }
 
